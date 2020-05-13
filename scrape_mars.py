@@ -1,5 +1,7 @@
 from splinter import Browser
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
+import datetime as dt
+
 
 
 def init_browser():
@@ -12,14 +14,15 @@ def scrape_all():
     news_title, news_paragraph = mars_news(browser)
 
     #run scraping functions then store in dictionary
-    scraped_data = { "news_title" : latest_title,
-                    "news_paragraph": news_intro,
-                    "featured_image": featured_image(browser),
-                    "hemispheres": hesmispheres(browser),
-                    "weather": twitter_weather(browser),
-                    "facts": mars_facts(),
-                    "last_modified": dt.datetime.now()
-                    }
+    scraped_data = { 
+        "news_title" : latest_title,
+        "news_paragraph": news_intro,
+        "featured_image": featured_image(browser),
+        "hemispheres": hesmispheres(browser),
+        "weather": twitter_weather(browser),
+        "facts": mars_facts(),
+        "last_modified": dt.datetime.now()
+    }
 
     browser.quit()
     return scraped_data
@@ -49,7 +52,7 @@ def mars_news(browser):
     for intro in teaser:
         paragraphs.append(intro)
     
-    news_intro = (paragraphs[0].text)
+    news_intro = (paragraphs[1].text)
     return latest_title, news_intro
 
 def jpl_image(browser):
